@@ -11,10 +11,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var wordView : TextView
     var currentWord : Word? = null
     val wordList = WordList()
+    lateinit var db : AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        db = AppDatabase.getInstance(this)
 
         wordView = findViewById(R.id.wordTextView)
 
