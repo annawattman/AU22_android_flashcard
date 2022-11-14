@@ -1,9 +1,11 @@
 package com.example.au22_flashcard
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +18,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val addWordsBtn = findViewById<Button>(R.id.addWordsBtn) // Lägger till min knapp
+        addWordsBtn.setOnClickListener {
+            val intent = Intent(this, AddWordsActivity::class.java)
+            startActivity(intent)
+        }
 
         db = AppDatabase.getInstance(this)
 
