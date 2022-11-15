@@ -5,9 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+
 @Database(entities = [Word::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
-    abstract val wordDao : WordDao
+ abstract class AppDatabase : RoomDatabase() {
+    // abstract val wordDao : WordDao
+    abstract fun wordDao(): WordDao
 
     // Spara en instans av objektet som skapas upp utifrån denna klass
     companion object { //Gemensam för alla objekt som skapas upp inifrån klassen

@@ -10,12 +10,12 @@ class WordList() {
 
 
     fun initializeWords() {
-        val word = Word(1, "Hello", "Hej")
+        val word = Word(0, "Hello", "Hej")
         wordList.add(word)
-        wordList.add(Word(1, "Good bye", "Hej då"))
-        wordList.add(Word(1, "Thank you", "Tack"))
-        wordList.add(Word(1, "Welcome", "Välkommen"))
-        wordList.add(Word(1, "Computer", "Dator"))
+        wordList.add(Word(0, "Good bye", "Hej då"))
+        wordList.add(Word(0, "Thank you", "Tack"))
+        wordList.add(Word(0, "Welcome", "Välkommen"))
+        wordList.add(Word(0, "Computer", "Dator"))
 
     }
 
