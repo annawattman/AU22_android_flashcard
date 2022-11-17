@@ -4,27 +4,27 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-
+import kotlinx.coroutines.internal.AddLastDesc
 
 @Dao
 interface WordDao {
 
-    @Insert // Lägger till ett word
-    fun insert(word: Word)
+    //här lägger man in eller skapar olika funktioner. typ "hitta alla word som börjar med H", hitta alla "djur"
 
-    //Delete
-    @Delete //Raderar ett ord
-    fun delete(word: Word)
-
-    //getAllWords
-    @Query("SELECT * FROM word_table") // Hämtar alla orden
-    fun getAllWord(): List<Word>
 
     @Insert
-    fun insertAll(word: Word)
+    fun insert(word : Word)
+
+    @Delete
+    fun delete(word : Word)
+
+    @Query("SELECT * FROM word_table")
+    fun getAll() : MutableList<Word>
 
 
-    @Query("DELETE FROM word_table")
-    fun deleteAll()
 
+/*
+    @Query("SELECT * FROM item_table WHERE category LIKE :categoryName")
+    fun findByCategory(categoryName : String) : List<Word>
+ */
 }

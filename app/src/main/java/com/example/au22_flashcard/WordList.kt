@@ -1,44 +1,38 @@
 package com.example.au22_flashcard
 
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
+import androidx.room.Room
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class WordList: AppCompatActivity(), CoroutineScope {
-
-    private lateinit var job: Job
-    private lateinit var db: AppDatabase
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
+class WordList() {
 
     val wordList = mutableListOf<Word>()
     private val usedWords = mutableListOf<Word>()
-    //  val defWordlist = loadAllWords()
-    //  launch {
-    //      val list = defWordlist.await()
-    //      for(word in list){
-    //          wordList.add(word)
-    //      }
-    //      showNewWord()
-//
-    //  }
-    // job = Job()
-//
-    // db = Room.databaseBuilder(applicationContext,
-    // AppDatabase::class.java,
-    // "word_items")
-    // .fallbackToDestructiveMigration()
-    // .build()
 
-
-    //alternativ 1
-    fun getNewWord(): Word {
+    init
+    {
+        initializeWords()
+    }
+    fun initializeWords() {
+        wordList.add(Word(1,"Hello", "Hej"))
+        wordList.add(Word(2,"Good bye", "Hej då"))
+        wordList.add(Word(3,"Thank you", "Tack"))
+        wordList.add(Word(4,"Welcome", "Välkommen"))
+        wordList.add(Word(5,"Computer", "Dator"))
+        wordList.add(Word(6, "Bird", "Fågel"))
+    }
+    fun clearList() {
+        wordList.clear()
+    }
+    fun addWord(word : Word) {
+        wordList.add(word)
+    }
+    fun getNewWord() : Word {
         if (wordList.size == usedWords.size) {
             usedWords.clear()
         }
-
-        var word: Word? = null
-
+        var word : Word? = null
         do {
             val rnd = (0 until wordList.size).random()
             word = wordList[rnd]
@@ -48,13 +42,7 @@ class WordList: AppCompatActivity(), CoroutineScope {
 
         return word
     }
-
-    fun loadAllWords(): Deferred<List<Word>> =
-        async(Dispatchers.IO) {
-            db.wordDao().getAllWord()
-        }
 }
-
 
 /* package com.example.au22_flashcard
 

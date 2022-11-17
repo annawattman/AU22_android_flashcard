@@ -5,26 +5,19 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-
 @Database(entities = [Word::class], version = 1)
- abstract class AppDatabase : RoomDatabase() {
-    // abstract val wordDao : WordDao
-    abstract fun wordDao(): WordDao
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun wordDao() : WordDao
 
-    // Spara en instans av objektet som skapas upp utifrån denna klass
-    companion object { //Gemensam för alla objekt som skapas upp inifrån klassen
+
+    companion object {
         @Volatile
         private var INSTANCE : AppDatabase? = null
 
-        fun getInstance(context: Context) : AppDatabase { // Ge oss vår databas, returnera databas
-            synchronized(this) { /*Ser till att den är låst, den går inte att köra samtidigt på flera trådar*/
+        fun getInstance(context: Context) : AppDatabase {
+            synchronized(this) {
                 var instance = INSTANCE
-                //Finns det en appDatabase redan? Finns det en instance? Första gången instance körs, behöver vi skapa databasen
                 if (instance == null) {
-
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,
@@ -34,10 +27,8 @@ import java.util.concurrent.Executors;
                         .build()
                     INSTANCE = instance
                 }
-
                 return instance
             }
         }
-        }
     }
-
+}

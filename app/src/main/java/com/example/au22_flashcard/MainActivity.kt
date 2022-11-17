@@ -1,121 +1,109 @@
 package com.example.au22_flashcard
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.room.Room
 import kotlinx.coroutines.*
-import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
 
-    lateinit var wordView: TextView
-    var currentWord: Word? = null
-    var wordList = mutableListOf<Word>()
-    private lateinit var job: Job
-    private lateinit var db: AppDatabase
+    lateinit var wordView : TextView
+    lateinit var flagImg : ImageView
+    var currentWord : Word? = null
+    val wordList = WordList()
 
+    private lateinit var job : Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
+    lateinit var db : AppDatabase
+
+    lateinit var revealButton : Button
+    lateinit var nextButton : Button
+    lateinit var addNewWord : Button
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        job = Job()
+        supportActionBar?.hide()
 
-        /*------------- ---------------- */
+        job = Job()
+        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "word-database")
+            .fallbackToDestructiveMigration()
+            .build()
+
         db = AppDatabase.getInstance(this)
 
         wordView = findViewById(R.id.wordTextView)
+       // flagImg = findViewById(R.id.flagImg)
+
+        showNewWord()
 
         wordView.setOnClickListener {
             revealTranslation()
         }
 
-        val list = loadAllWords()
+       /* revealButton = findViewById(R.id.revealButton)
+        revealButton.setOnClickListener {
+            revealTranslation()
+            //flagImg.setImageResource(R.drawable.english_flag)
+        } */
 
-        launch {
-            wordList = list.await() as MutableList<Word>
+        nextButton = findViewById(R.id.nextButton)
+        nextButton.setOnClickListener {
             showNewWord()
+           // flagImg.setImageResource(R.drawable.swedish_flag)
         }
-
-        /* ---------ADD WORDS BUTTON --------- */
-        val addWordsBtn = findViewById<Button>(R.id.addWordsBtn) // Lägger till min knapp
-        addWordsBtn.setOnClickListener {
-            val intent = Intent(this, AddWordsActivity::class.java)
+        addNewWord = findViewById(R.id.addNewWord)
+        addNewWord.setOnClickListener {
+            val intent = Intent(this, AddNewWord::class.java)
             startActivity(intent)
         }
-    }
-
-
-    fun getNewWord(): Word {
-        val usedWords = mutableListOf<Word>()
-        if (wordList.size == usedWords.size) {
-            usedWords.clear()
+    } //uppdatera listan
+    override fun onResume() {
+        super.onResume()
+        wordList.clearList()
+        wordList.initializeWords() //från WordList.kt
+        launch {
+            val addedWords = loadAllItems() //från databasen
+            val list = addedWords.await()
+            addNewWord(list)
         }
-
-        var word: Word? = null
-
-        do {
-            val rnd = (0 until wordList.size).random()
-            word = wordList[rnd]
-        } while (usedWords.contains(word))
-
-        usedWords.add(word!!)
-
-        return word
     }
-
-
-    fun loadAllWords(): Deferred<List<Word>> =
-        async(Dispatchers.IO) {
-            db.wordDao().getAllWord()
-        }
-
-
     fun revealTranslation() {
-        wordView.text = currentWord?.english
+        if (wordView.text == currentWord?.english) {
+            wordView.text = currentWord?.swedish
+        } else {
+            wordView.text = currentWord?.english
+        }
     }
-
     fun showNewWord() {
-        currentWord = getNewWord()
+        currentWord = wordList.getNewWord()
         wordView.text = currentWord?.swedish
     }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-
+    fun loadAllItems() : Deferred<MutableList<Word>> =
+        async(Dispatchers.IO) {
+            db.wordDao().getAll()
+        }
+    fun addNewWord(list : MutableList<Word>) {
+        for (word in list) {
+            wordList.addWord(word)
+        }
+    } //har även en knapp som gör samma sak
+    override fun onTouchEvent(event : MotionEvent?) : Boolean {
         if (event?.action == MotionEvent.ACTION_UP) {
             showNewWord()
         }
-
         return true
     }
-
 }
-/*
-    fun showNewWord()  {
-        currentWord = wordList[4]
-       // wordView.text = currentWord?.english
-        // val rnd = (0 until wordList.size).random()
-      //  currentWord = wordList[rnd] // Random word
-        // currentWord = wordList.getNewWord()
-        wordView.setText(currentWord?.swedish)
-      /*= currentWord?.swedish */
-        // return wordList[rnd]
-/*
-        for (x in 0 until wordList.size) {
-            wordView.setText(result.get(x))
-        } */
-
-    } */
-
-/*
-    fun delete(word : Word) =
-        launch(Dispatchers.IO) {
-            db.wordDao().delete(word)
-        }
-*/
