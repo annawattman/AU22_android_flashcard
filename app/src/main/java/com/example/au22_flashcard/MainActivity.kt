@@ -17,7 +17,6 @@ import kotlin.coroutines.CoroutineContext
 class MainActivity : AppCompatActivity(), CoroutineScope {
 
     lateinit var wordView : TextView
-    lateinit var flagImg : ImageView
     var currentWord : Word? = null
     val wordList = WordList()
 
@@ -53,18 +52,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             revealTranslation()
         }
 
-       /* revealButton = findViewById(R.id.revealButton)
-        revealButton.setOnClickListener {
-            revealTranslation()
-            //flagImg.setImageResource(R.drawable.english_flag)
-        } */
 
         nextButton = findViewById(R.id.nextButton)
         nextButton.setOnClickListener {
             showNewWord()
-           // flagImg.setImageResource(R.drawable.swedish_flag)
+
         }
-        addNewWord = findViewById(R.id.addNewWord)
+
+        addNewWord = findViewById<Button>(R.id.addNewWord)
         addNewWord.setOnClickListener {
             val intent = Intent(this, AddNewWord::class.java)
             startActivity(intent)

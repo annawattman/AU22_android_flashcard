@@ -45,8 +45,8 @@ class AddNewWord : AppCompatActivity(), CoroutineScope {
             addNewWord()
             finish()
         }
-        backButton = findViewById(R.id.backFloatingButton)
-        backButton.setOnClickListener {
+        var goBackBtn = findViewById<Button>(R.id.goBackBtn)
+        goBackBtn.setOnClickListener {
             finish()
         }
     }

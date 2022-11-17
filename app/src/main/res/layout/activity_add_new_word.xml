@@ -4,70 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#4B6683"
     tools:context=".AddNewWord">
 
     <TextView
         android:id="@+id/addNewWordStatic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_width="289dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="84dp"
         android:text="Add new word"
         android:textColor="#FFFFFF"
         android:textColorHint="#000000"
-        android:textSize="25sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textAlignment="center" />
 
     <EditText
         android:id="@+id/swedishWordInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="56dp"
+        android:background="#FFFFFF"
         android:ems="10"
-        android:background="@color/white"
-        android:hint="Swedish word"
+        android:gravity="center"
+        android:hint="Svenska"
         android:inputType="textCapSentences"
         android:minHeight="48dp"
+        android:textColorHint="#858585"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addNewWordStatic" />
+        app:layout_constraintTop_toBottomOf="@+id/addNewWordStatic"
+        tools:textColor="#000000" />
 
     <EditText
         android:id="@+id/englishWordInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
         android:background="@color/white"
 
-        android:layout_marginTop="50dp"
         android:ems="10"
-        android:hint="English word"
+        android:gravity="center"
+        android:hint="English"
         android:inputType="textCapSentences"
         android:minHeight="48dp"
+        android:textColorHint="#858585"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swedishWordInput" />
 
     <Button
         android:id="@+id/addWordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="165dp"
+        android:layout_height="64dp"
         android:layout_marginTop="50dp"
+        android:backgroundTint="#537332"
+        android:textColor="#000000"
         android:text="Add word"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/englishWordInput" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/backFloatingButton"
+    <Button
+        android:id="@+id/goBackBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:clickable="true"
+        android:layout_marginBottom="60dp"
+        android:text="Go back"
+        android:backgroundTint="#537332"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
