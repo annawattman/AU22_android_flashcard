@@ -3,7 +3,6 @@ package com.example.au22_flashcard
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.room.Room
@@ -19,8 +18,8 @@ class AddNewWord : AppCompatActivity(), CoroutineScope {
 
     lateinit var swedishWord: EditText
     lateinit var englishWord: EditText
-    lateinit var addButton: Button
-    lateinit var backButton: FloatingActionButton
+    lateinit var addWordBtn: Button
+    lateinit var goBackBtn: Button
 
     private lateinit var db: AppDatabase
 
@@ -38,14 +37,14 @@ class AddNewWord : AppCompatActivity(), CoroutineScope {
 
         db = AppDatabase.getInstance(this)
 
-        swedishWord = findViewById(R.id.swedishWordInput)
-        englishWord = findViewById(R.id.englishWordInput)
-        addButton = findViewById(R.id.addWordButton)
-        addButton.setOnClickListener {
+        swedishWord = findViewById(R.id.newSwedishInput)
+        englishWord = findViewById(R.id.newEnglishInput)
+        addWordBtn = findViewById(R.id.addWordBtn)
+        addWordBtn.setOnClickListener {
             addNewWord()
             finish()
         }
-        var goBackBtn = findViewById<Button>(R.id.goBackBtn)
+        goBackBtn = findViewById(R.id.goBackBtn)
         goBackBtn.setOnClickListener {
             finish()
         }

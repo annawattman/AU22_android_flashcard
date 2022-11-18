@@ -8,7 +8,7 @@
     tools:context=".AddNewWord">
 
     <TextView
-        android:id="@+id/addNewWordStatic"
+        android:id="@+id/addNewWordTitle"
         android:layout_width="289dp"
         android:layout_height="84dp"
         android:layout_marginTop="84dp"
@@ -23,7 +23,7 @@
         tools:textAlignment="center" />
 
     <EditText
-        android:id="@+id/swedishWordInput"
+        android:id="@+id/newSwedishInput"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginTop="56dp"
@@ -37,11 +37,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addNewWordStatic"
+        app:layout_constraintTop_toBottomOf="@+id/addNewWordTitle"
         tools:textColor="#000000" />
 
     <EditText
-        android:id="@+id/englishWordInput"
+        android:id="@+id/newEnglishInput"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginTop="50dp"
@@ -55,10 +55,10 @@
         android:textColorHint="#858585"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swedishWordInput" />
+        app:layout_constraintTop_toBottomOf="@+id/newSwedishInput" />
 
     <Button
-        android:id="@+id/addWordButton"
+        android:id="@+id/addWordBtn"
         android:layout_width="165dp"
         android:layout_height="64dp"
         android:layout_marginTop="50dp"
@@ -68,7 +68,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/englishWordInput" />
+        app:layout_constraintTop_toBottomOf="@+id/newEnglishInput" />
 
     <Button
         android:id="@+id/goBackBtn"

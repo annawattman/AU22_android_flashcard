@@ -3,20 +3,17 @@ package com.example.au22_flashcard
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.room.Room
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
-
-    lateinit var wordView : TextView
+// Skapar variabler
+    lateinit var wordTextView : TextView
     var currentWord : Word? = null
     val wordList = WordList()
 
@@ -25,9 +22,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         get() = Dispatchers.Main + job
     lateinit var db : AppDatabase
 
-    lateinit var revealButton : Button
-    lateinit var nextButton : Button
-    lateinit var addNewWord : Button
+    // Lägger till mina knappar
+    lateinit var nextWordBtn : Button
+    lateinit var addNewWordBtn : Button
 
 
     @SuppressLint("MissingInflatedId")
@@ -35,7 +32,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-
+// Kopplar databasen till variabeln db
         job = Job()
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "word-database")
             .fallbackToDestructiveMigration()
@@ -43,48 +40,48 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
         db = AppDatabase.getInstance(this)
 
-        wordView = findViewById(R.id.wordTextView)
-       // flagImg = findViewById(R.id.flagImg)
+        wordTextView = findViewById(R.id.wordTextView)
 
         showNewWord()
 
-        wordView.setOnClickListener {
+        wordTextView.setOnClickListener {
             revealTranslation()
         }
 
 
-        nextButton = findViewById(R.id.nextButton)
-        nextButton.setOnClickListener {
+        nextWordBtn = findViewById(R.id.nextWordBtn)
+        nextWordBtn.setOnClickListener {
             showNewWord()
-
         }
 
-        addNewWord = findViewById<Button>(R.id.addNewWord)
-        addNewWord.setOnClickListener {
+        addNewWordBtn = findViewById<Button>(R.id.addNewWordBtn)
+        addNewWordBtn.setOnClickListener {
             val intent = Intent(this, AddNewWord::class.java)
             startActivity(intent)
         }
-    } //uppdatera listan
+    }
+    //Uppdaterar listan
     override fun onResume() {
         super.onResume()
         wordList.clearList()
-        wordList.initializeWords() //från WordList.kt
+        wordList.initializeWords() // från WordList.kt
         launch {
-            val addedWords = loadAllItems() //från databasen
+            val addedWords = loadAllItems() // från room-databasen
             val list = addedWords.await()
             addNewWord(list)
         }
     }
+    /* Funktioner */
     fun revealTranslation() {
-        if (wordView.text == currentWord?.english) {
-            wordView.text = currentWord?.swedish
+        if (wordTextView.text == currentWord?.english) {
+            wordTextView.text = currentWord?.swedish
         } else {
-            wordView.text = currentWord?.english
+            wordTextView.text = currentWord?.english
         }
     }
     fun showNewWord() {
         currentWord = wordList.getNewWord()
-        wordView.text = currentWord?.swedish
+        wordTextView.text = currentWord?.swedish
     }
     fun loadAllItems() : Deferred<MutableList<Word>> =
         async(Dispatchers.IO) {
@@ -94,7 +91,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         for (word in list) {
             wordList.addWord(word)
         }
-    } //har även en knapp som gör samma sak
+    } // Knapp som också byter ord
     override fun onTouchEvent(event : MotionEvent?) : Boolean {
         if (event?.action == MotionEvent.ACTION_UP) {
             showNewWord()

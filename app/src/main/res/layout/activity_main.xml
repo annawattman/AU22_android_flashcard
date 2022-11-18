@@ -16,7 +16,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="18dp"
         android:background="#314255"
-        app:layout_constraintBottom_toTopOf="@+id/nextButton"
+        app:layout_constraintBottom_toTopOf="@+id/nextWordBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/nextButton"
+        android:id="@+id/nextWordBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
@@ -44,14 +44,14 @@
         android:backgroundTint="#537332"
         android:text="Next word"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/addNewWord"
+        app:layout_constraintBottom_toTopOf="@+id/addNewWordBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
     <Button
-        android:id="@+id/addNewWord"
+        android:id="@+id/addNewWordBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nextButton" />
+        app:layout_constraintTop_toBottomOf="@+id/nextWordBtn" />
 
     <TextView
         android:id="@+id/textView2"
